@@ -1,0 +1,17 @@
+C:\Emgu\emgucv-windesktop 3.1.0.2504\bin\license-plate.jpg
+C:\Emgu\emgucv-windesktop 3.1.0.2504\bin\tessdata\eng.cube.bigrams
+C:\Emgu\emgucv-windesktop 3.1.0.2504\bin\tessdata\eng.cube.fold
+C:\Emgu\emgucv-windesktop 3.1.0.2504\bin\tessdata\eng.cube.lm
+C:\Emgu\emgucv-windesktop 3.1.0.2504\bin\tessdata\eng.cube.nn
+C:\Emgu\emgucv-windesktop 3.1.0.2504\bin\tessdata\eng.cube.params
+C:\Emgu\emgucv-windesktop 3.1.0.2504\bin\tessdata\eng.cube.size
+C:\Emgu\emgucv-windesktop 3.1.0.2504\bin\tessdata\eng.cube.word-freq
+C:\Emgu\emgucv-windesktop 3.1.0.2504\bin\tessdata\eng.tesseract_cube.nn
+C:\Emgu\emgucv-windesktop 3.1.0.2504\bin\tessdata\eng.traineddata
+C:\Emgu\emgucv-windesktop 3.1.0.2504\bin\Example.LicensePlateRecognition.exe
+C:\Emgu\emgucv-windesktop 3.1.0.2504\bin\Example.LicensePlateRecognition.pdb
+C:\Emgu\emgucv-windesktop 3.1.0.2504\Emgu.CV.Example\LicensePlateRecognition\obj\Debug\LicensePlateRecognition.csprojResolveAssemblyReference.cache
+C:\Emgu\emgucv-windesktop 3.1.0.2504\Emgu.CV.Example\LicensePlateRecognition\obj\Debug\LicensePlateRecognition.LicensePlateRecognitionForm.resources
+C:\Emgu\emgucv-windesktop 3.1.0.2504\Emgu.CV.Example\LicensePlateRecognition\obj\Debug\LicensePlateRecognition.csproj.GenerateResource.Cache
+C:\Emgu\emgucv-windesktop 3.1.0.2504\Emgu.CV.Example\LicensePlateRecognition\obj\Debug\Example.LicensePlateRecognition.exe
+C:\Emgu\emgucv-windesktop 3.1.0.2504\Emgu.CV.Example\LicensePlateRecognition\obj\Debug\Example.LicensePlateRecognition.pdb

@@ -1,0 +1,77 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Emgu.CV;
+using Emgu.CV.Structure;
+using Emgu.CV.CvEnum;
+using Emgu.Util;
+using System.Drawing;
+using Emgu.CV.Util;
+using System.Collections;
+namespace Final.Tool
+{
+    class Pictrue
+    {
+        public static ArrayList list = new ArrayList();
+        public static void preDeal(String path)
+        {
+            list.Clear();
+            Image<Bgr, byte> src = new Image<Bgr, byte>(path);
+            Image<Gray, byte> graySrc = src.Convert<Gray, byte>();
+            //CvInvoke.cvSmooth(graySrc.Ptr,graySrc.Ptr,Emgu.CV.CvEnum.SMOOTH_TYPE.CV_GAUSSIAN,3,3,0,0);
+            Mat sobel = new Mat();
+            CvInvoke.Sobel(graySrc, sobel, DepthType.Cv16U, 0, 3);
+            CvInvoke.NamedWindow("sobel");
+            CvInvoke.Imshow("sobel", sobel);
+            CvInvoke.Threshold(sobel, sobel, 0, 255,ThresholdType.Otsu);
+
+            //自定义1*3的核进行X方向的膨胀腐蚀
+            CvInvoke.Dilate(sobel, sobel, null, new Point(1,0), 10, BorderType.Constant, CvInvoke.MorphologyDefaultBorderValue);//X方向膨胀连通数字
+            CvInvoke.Erode(sobel, sobel, null, new Point(1, 0), 16, BorderType.Constant, CvInvoke.MorphologyDefaultBorderValue);//X方向腐蚀去除碎片
+            CvInvoke.Dilate(sobel, sobel, null, new Point(1, 0), 10, BorderType.Constant, CvInvoke.MorphologyDefaultBorderValue); //X方向膨胀回复形态
+            //自定义3*1的核进行Y方向的膨胀腐蚀
+
+
+            CvInvoke.Erode(sobel, sobel, null, new Point(0, 1), 1, BorderType.Constant, CvInvoke.MorphologyDefaultBorderValue);// Y方向腐蚀去除碎片
+            CvInvoke.Dilate(sobel, sobel, null, new Point(0, 1), 10, BorderType.Constant, CvInvoke.MorphologyDefaultBorderValue);//回复形态
+            CvInvoke.NamedWindow("sobel2");
+            CvInvoke.Imshow("sobel2", sobel);
+
+            //轮廓检测：
+            VectorOfVectorOfPoint contours = new VectorOfVectorOfPoint();
+            
+            CvInvoke.FindContours(sobel,
+                contours,
+                null,
+                RetrType.External,
+                ChainApproxMethod.ChainApproxSimple);
+            int count = contours.Size;
+
+            Image<Bgr, byte> tempContImg = new Image<Bgr, byte>(path);
+
+            for (int i = 1; i < count; i++)
+            {
+                using (VectorOfPoint contour = contours[i])
+                {
+                    Rectangle rect = CvInvoke.BoundingRectangle(contour);
+                    if (rect.Width > 2.8 * rect.Height && rect.Width < 3.5 * rect.Height)//
+                    {
+                        //抠到图了
+                        Image<Bgr, byte> dst = new Image<Bgr, byte>(rect.Width, rect.Height);
+                        CvInvoke.cvSetImageROI(tempContImg.Ptr, rect);
+                        CvInvoke.cvCopy(tempContImg.Ptr, dst.Ptr, new IntPtr());
+                        list.Add(dst);
+                        CvInvoke.Imwrite("p1.jpg", dst);
+                        CvInvoke.cvResetImageROI(tempContImg);
+                    }
+                    CvInvoke.DrawContours(tempContImg, contour, i, new MCvScalar(255, 255, 255),  1, LineType.EightConnected,null,2147483647,new Point(0, 0));
+                }
+
+            }
+            //Rectangle rect = CvInvoke.cvBoundingRect(DyncontourTemp, false);
+            CvInvoke.Imshow("cont", tempContImg);
+        }
+    }
+}
